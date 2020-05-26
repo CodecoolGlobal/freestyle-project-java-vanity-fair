@@ -54,6 +54,7 @@ public class Terminal {
      * @param y Row number.
      */
     public void moveTo(Integer x, Integer y) {
+        command(x + ";" + y + MOVE);
     }
 
     /**
@@ -95,6 +96,10 @@ public class Terminal {
      * @param amount Step the cursor this many times.
      */
     public void moveCursor(Direction direction, Integer amount) {
+        if(direction.ordinal() == 0) command(amount + "A");
+        if(direction.ordinal() == 1) command(amount + "B");
+        if(direction.ordinal() == 2) command(amount + "C");
+        if(direction.ordinal() == 3) command(amount + "D");
     }
 
     /**
@@ -108,6 +113,7 @@ public class Terminal {
      * position.
      */
     public void setChar(char c) {
+        System.out.print(c);
     }
 
     /**

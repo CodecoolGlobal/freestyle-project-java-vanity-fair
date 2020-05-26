@@ -9,7 +9,7 @@ public class Main {
             "c : Reset all settings\n" +
             "d : Set italics\n" +
             "e : Set underscore\n" +
-            "f : Set ceva\n" +
+            "f : Move to 0, 0\n" +
             "z : Exit program\n";
 
     private static String COLOR_SUBMENU = "Color Submenu:\n" +
@@ -30,6 +30,7 @@ public class Main {
 
         while (runProgram) {
             terminal.clearScreen();
+            terminal.moveTo(0, 0);
             System.out.println(MENU);
 
             String userInput = scan.nextLine();
@@ -109,7 +110,7 @@ public class Main {
                     terminal.setStyle(Attribute.UNDERSCORE);
                     break;
                 case "f":
-                    terminal.setStyle(Attribute.UNDEFINED);
+                    terminal.moveTo(0, 0);
                     break;
                 case "z":
                     runProgram = false;
