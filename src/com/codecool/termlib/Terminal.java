@@ -31,7 +31,8 @@ public class Terminal {
      * Reset the color, background color, and any other style
      * (i.e.: underlined, dim, bright) to the terminal defaults.
      */
-    public void resetStyle() {
+    public void resetStyle(Attribute attribute) {
+        System.out.println(CONTROL_CODE + (0 + attribute.ordinal()) + STYLE);
     }
 
     /**
@@ -61,7 +62,8 @@ public class Terminal {
      *
      * @param color The color to set.
      */
-    public void setColor(Color color) {
+    public static void setColor(Color color) {
+        System.out.println(CONTROL_CODE + (30 + color.ordinal()) + STYLE);
     }
 
     /**
@@ -72,6 +74,7 @@ public class Terminal {
      * @param color The background color to set.
      */
     public void setBgColor(Color color) {
+        System.out.println(CONTROL_CODE + (40 + color.ordinal()) + STYLE);
     }
 
     /**
@@ -81,7 +84,8 @@ public class Terminal {
      * underlined.  Cannot be turned off without turning off colors as
      * well.
      */
-    public void setUnderline() {
+    public void setUnderline(Attribute attribute) {
+        System.out.println(CONTROL_CODE + (4 + attribute.ordinal()) + STYLE);
     }
 
     /**
@@ -119,4 +123,6 @@ public class Terminal {
      */
     private void command(String commandString) {
     }
+
+
 }
