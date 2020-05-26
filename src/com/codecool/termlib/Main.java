@@ -8,6 +8,8 @@ public class Main {
             "b : Set background color\n" +
             "c : Reset all settings\n" +
             "d : Set italics\n" +
+            "e : Set underscore\n" +
+            "f : Set ceva\n" +
             "z : Exit program\n";
 
     private static String COLOR_SUBMENU = "Color Submenu:\n" +
@@ -24,66 +26,94 @@ public class Main {
 
     public static void main(String[] args) {
         boolean runProgram = true;
+        Terminal terminal = new Terminal();
 
         while (runProgram) {
-            Terminal terminal = new Terminal();
-
+            terminal.clearScreen();
             System.out.println(MENU);
 
             String userInput = scan.nextLine();
 
-            if (userInput.equals("a")) {
-                System.out.println(COLOR_SUBMENU);
+            switch (userInput) {
+                case "a":
+                    System.out.println(COLOR_SUBMENU);
 
-                userInput = scan.nextLine();
-                if (userInput.equals("1")) {
-                    terminal.setColor(Color.RED);
-                } else if (userInput.equals("2")) {
-                    terminal.setColor(Color.GREEN);
-                } else if (userInput.equals("2")) {
-                    terminal.setColor(Color.GREEN);
-                } else if (userInput.equals("3")) {
-                    terminal.setColor(Color.YELLOW);
-                } else if (userInput.equals("4")) {
-                    terminal.setColor(Color.BLUE);
-                } else if (userInput.equals("5")) {
-                    terminal.setColor(Color.MAGENTA);
-                } else if (userInput.equals("6")) {
-                    terminal.setColor(Color.CYAN);
-                } else if (userInput.equals("7")) {
-                    terminal.setColor(Color.WHITE);
-                } else {
-                    terminal.setColor(Color.BLACK);
-                }
-                System.out.println(MENU);
-            } else if (userInput.equals("b")) {
-                System.out.println(COLOR_SUBMENU);
+                    userInput = scan.nextLine();
+                    switch (userInput) {
+                        case "1":
+                            terminal.setColor(Color.RED);
+                            break;
+                        case "2":
+                            terminal.setColor(Color.GREEN);
+                            break;
+                        case "3":
+                            terminal.setColor(Color.YELLOW);
+                            break;
+                        case "4":
+                            terminal.setColor(Color.BLUE);
+                            break;
+                        case "5":
+                            terminal.setColor(Color.MAGENTA);
+                            break;
+                        case "6":
+                            terminal.setColor(Color.CYAN);
+                            break;
+                        case "7":
+                            terminal.setColor(Color.WHITE);
+                            break;
+                        default:
+                            terminal.setColor(Color.BLACK);
+                            break;
+                    }
+                    System.out.println(MENU);
+                    break;
+                case "b":
+                    System.out.println(COLOR_SUBMENU);
 
-                userInput = scan.nextLine();
-                if (userInput.equals("1")) {
-                    terminal.setBgColor(Color.RED);
-                } else if (userInput.equals("2")) {
-                    terminal.setBgColor(Color.GREEN);
-                } else if (userInput.equals("3")) {
-                    terminal.setBgColor(Color.YELLOW);
-                } else if (userInput.equals("4")) {
-                    terminal.setBgColor(Color.BLUE);
-                } else if (userInput.equals("5")) {
-                    terminal.setBgColor(Color.MAGENTA);
-                } else if (userInput.equals("6")) {
-                    terminal.setBgColor(Color.CYAN);
-                } else if (userInput.equals("7")) {
-                    terminal.setBgColor(Color.WHITE);
-                } else {
-                    terminal.setBgColor(Color.BLACK);
-                }
-                System.out.println(MENU);
-            } else if (userInput.equals("c")) {
-                terminal.resetStyle(Attribute.RESET);
-            } else if (userInput.equals("d")) {
-                terminal.resetStyle(Attribute.UNDERSCORE);
-            } else if (userInput.equals("z")) {
-                runProgram = false;
+                    userInput = scan.nextLine();
+                    switch (userInput) {
+                        case "1":
+                            terminal.setBgColor(Color.RED);
+                            break;
+                        case "2":
+                            terminal.setBgColor(Color.GREEN);
+                            break;
+                        case "3":
+                            terminal.setBgColor(Color.YELLOW);
+                            break;
+                        case "4":
+                            terminal.setBgColor(Color.BLUE);
+                            break;
+                        case "5":
+                            terminal.setBgColor(Color.MAGENTA);
+                            break;
+                        case "6":
+                            terminal.setBgColor(Color.CYAN);
+                            break;
+                        case "7":
+                            terminal.setBgColor(Color.WHITE);
+                            break;
+                        default:
+                            terminal.setBgColor(Color.BLACK);
+                            break;
+                    }
+                    System.out.println(MENU);
+                    break;
+                case "c":
+                    terminal.resetStyle();
+                    break;
+                case "d":
+                    terminal.setStyle(Attribute.ITALIC);
+                    break;
+                case "e":
+                    terminal.setStyle(Attribute.UNDERSCORE);
+                    break;
+                case "f":
+                    terminal.setStyle(Attribute.UNDEFINED);
+                    break;
+                case "z":
+                    runProgram = false;
+                    break;
             }
 
         }

@@ -31,8 +31,8 @@ public class Terminal {
      * Reset the color, background color, and any other style
      * (i.e.: underlined, dim, bright) to the terminal defaults.
      */
-    public void resetStyle(Attribute attribute) {
-        System.out.println(CONTROL_CODE + (0 + attribute.ordinal()) + STYLE);
+    public void resetStyle() {
+        command(0 + STYLE);
     }
 
     /**
@@ -41,6 +41,7 @@ public class Terminal {
      * Might reset cursor position.
      */
     public void clearScreen() {
+        command(CLEAR);
     }
 
     /**
@@ -62,8 +63,8 @@ public class Terminal {
      *
      * @param color The color to set.
      */
-    public static void setColor(Color color) {
-        System.out.println(CONTROL_CODE + (30 + color.ordinal()) + STYLE);
+    public void setColor(Color color) {
+        command(30 + color.ordinal() + STYLE);
     }
 
     /**
@@ -74,18 +75,14 @@ public class Terminal {
      * @param color The background color to set.
      */
     public void setBgColor(Color color) {
-        System.out.println(CONTROL_CODE + (40 + color.ordinal()) + STYLE);
+        command( 40 + color.ordinal() + STYLE);
     }
 
     /**
-     * Make printed text underlined.
-     *
-     * On some terminals this might produce slanted text instead of
-     * underlined.  Cannot be turned off without turning off colors as
-     * well.
+     * Apply style attributes to text.
      */
-    public void setUnderline(Attribute attribute) {
-        System.out.println(CONTROL_CODE + (4 + attribute.ordinal()) + STYLE);
+    public void setStyle(Attribute attribute) {
+        command(attribute.ordinal() + STYLE);
     }
 
     /**
@@ -104,7 +101,7 @@ public class Terminal {
      * Set the character diplayed under the current cursor position.
      *
      * The actual cursor position after calling this method is the
-     * same as beforehand.  This method is useful for drawing shapes
+     * same as beforehand.
      * (for example frame borders) with cursor movement.
      *
      * @param c the literal character to set for the current cursor
@@ -119,9 +116,10 @@ public class Terminal {
      * The common parts of different commands shall be assembled here.
      * The actual printing shall be handled from this command.
      *
-     * @param commandString The unique part of a command sequence.
+     * @param commandCode The unique part of a command sequence.
      */
-    private void command(String commandString) {
+    private void command(String commandCode) {
+        System.out.println(CONTROL_CODE + (commandCode));
     }
 
 
