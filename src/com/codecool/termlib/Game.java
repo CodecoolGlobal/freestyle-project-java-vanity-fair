@@ -1,5 +1,8 @@
 package com.codecool.termlib;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Game implements GameInterface {
 
     private int[][] board;
@@ -43,6 +46,32 @@ public class Game implements GameInterface {
     }
 
     public int[] getMove(int player) {
+        boolean wrongUserInput = true;
+        Scanner scan = new Scanner(System.in);
+
+        while(wrongUserInput) {
+            System.out.print("User choice: ");
+            String userInput = scan.nextLine();
+
+            char rowChar = Character.toUpperCase(userInput.charAt(0));
+            int row = rowChar - 'A';
+            int col = Integer.parseInt(userInput.substring(1)) - 1;
+
+            if (row>=0 && row < 11 && col >=0 && col < 11 && board[row][col] == 0) {
+                wrongUserInput = false;
+
+                if (player % 2 == 0) {
+                    board[row][col] = 2;
+                } else {
+                    board[row][col] = 1;
+                }
+            } else {
+                System.out.println("Wrong coordinates! Please try again!");
+            }
+        }
+
+        printBoard();
+
         return null;
     }
 
@@ -97,6 +126,12 @@ public class Game implements GameInterface {
     }
 
     public void play(int howMany) {
+        int player = 1;
 
+        boolean gameOn = true;
+//        while (gameOn) {
+//            getMove(player);
+//            player++;
+//        }
     }
 }
