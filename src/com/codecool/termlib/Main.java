@@ -9,7 +9,7 @@ public class Main {
             "c : Reset all settings\n" +
             "d : Set italics\n" +
             "e : Set underscore\n" +
-            "f : Move to 0, 0\n" +
+            "f : Play Five in a Row Game\n" +
             "z : Exit program\n";
 
     private static String COLOR_SUBMENU = "Color Submenu:\n" +
@@ -33,12 +33,14 @@ public class Main {
             terminal.moveTo(0, 0);
             System.out.println(MENU);
 
+            System.out.print("User choice: ");
             String userInput = scan.nextLine();
 
             switch (userInput) {
                 case "a":
                     System.out.println(COLOR_SUBMENU);
 
+                    System.out.print("User choice: ");
                     userInput = scan.nextLine();
                     switch (userInput) {
                         case "1":
@@ -71,6 +73,7 @@ public class Main {
                 case "b":
                     System.out.println(COLOR_SUBMENU);
 
+                    System.out.print("User choice: ");
                     userInput = scan.nextLine();
                     switch (userInput) {
                         case "1":
@@ -110,7 +113,17 @@ public class Main {
                     terminal.setStyle(Attribute.UNDERSCORE);
                     break;
                 case "f":
-                    terminal.moveTo(0, 0);
+                    boolean gameOn = true;
+
+                    Game game = new Game(11, 11);
+                    game.printBoard();
+                    game.play(5);
+
+//                    while (gameOn) {
+//                        System.out.print("User choice: ");
+//                        userInput = scan.nextLine();
+//                    }
+
                     break;
                 case "z":
                     runProgram = false;
