@@ -241,9 +241,13 @@ public class Game implements GameInterface {
                 if (this.board[row][col] == 0) {
                     System.out.print(" . ");
                 } else if (this.board[row][col] == 1) {
+                    terminal.setColor(Color.BLUE);
                     System.out.print(" X ");
+                    terminal.resetStyle();
                 } else {
+                    terminal.setColor(Color.YELLOW);
                     System.out.print(" O ");
+                    terminal.resetStyle();
                 }
             }
         }

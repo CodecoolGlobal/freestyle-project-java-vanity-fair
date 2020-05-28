@@ -125,7 +125,7 @@ public class Terminal {
      * @param commandCode The unique part of a command sequence.
      */
     private void command(String commandCode) {
-        System.out.println(CONTROL_CODE + (commandCode));
+        System.out.print(CONTROL_CODE + (commandCode));
     }
 
 
