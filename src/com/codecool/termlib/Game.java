@@ -12,6 +12,7 @@ public class Game implements GameInterface {
     private int player;
     private int moveCounter;
     private boolean userQuit;
+    private int[] move; // move[0] = row; move[1] = col
 
     /**
      * Build new board with nRows x nCols dimensions
@@ -60,7 +61,7 @@ public class Game implements GameInterface {
      * @return array of 2 int [row, col]
      */
     public int[] getMove(int player) {
-        int[] move = new int[2]; // move[0] = row; move[1] = col
+        move = new int[2]; // move[0] = row; move[1] = col
         move[0] = -1;
         move[1] = -1;
         boolean wrongUserInput = true;
@@ -70,7 +71,7 @@ public class Game implements GameInterface {
             System.out.printf("Player %d choice: ", player);
             String userInput = scan.nextLine().toUpperCase();
 
-            if(userInput.equals("QUIT")) {
+            if (userInput.equals("QUIT")) {
                 userQuit = true;
                 break;
             }
@@ -131,12 +132,88 @@ public class Game implements GameInterface {
         }
     }
 
+    /**
+     * Returns true if player (of value 1 or 2) has howMany marks in a row on the board
+     *
+     * @param player  (X or O)
+     * @param howMany default is 5
+     * @return boolean
+     */
     public boolean hasWon(int player, int howMany) {
+        int row = move[0];
+        int col = move[1];
+
+        int winCounter = 1;
+
+        // check victory for rows
+        for (int i = col + 1; i < nCols; i++) {
+            if (board[row][i] == player) {
+                winCounter++;
+            }
+        }
+        for (int i = col - 1; i >= 0; i--) {
+            if (board[row][i] == player) {
+                winCounter++;
+            }
+        }
+        if (winCounter >= howMany) {
+            return true;
+        }
+
+        // check victory for cols
+        winCounter = 1;
+        for (int i = row + 1; i < nRows; i++) {
+            if (board[i][col] == player) {
+                winCounter++;
+            }
+        }
+        for (int i = row - 1; i >= 0; i--) {
+            if (board[i][col] == player) {
+                winCounter++;
+            }
+        }
+        if (winCounter >= howMany) {
+            return true;
+        }
+
+        // check victory for main diagonal
+        winCounter = 1;
+        for (int i = row + 1, j = col + 1; i < nRows && j < nCols; i++, j++) {
+            if (board[i][j] == player) {
+                winCounter++;
+            }
+        }
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] == player) {
+                winCounter++;
+            }
+        }
+        if (winCounter >= howMany) {
+            return true;
+        }
+
+        // check victory for secondary diagonal
+        winCounter = 1;
+        for (int i = row + 1, j = col - 1; i < nRows && j >= 0; i++, j--) {
+            if (board[i][j] == player) {
+                winCounter++;
+            }
+        }
+        for (int i = row - 1, j = col + 1; i >= 0 && j < nCols; i--, j++) {
+            if (board[i][j] == player) {
+                winCounter++;
+            }
+        }
+        if (winCounter >= howMany) {
+            return true;
+        }
+
         return false;
     }
 
     /**
      * Returns true if the board is full.
+     *
      * @return boolean
      */
     public boolean isFull() {
@@ -176,10 +253,11 @@ public class Game implements GameInterface {
 
     /**
      * Displays the result of the game.
+     *
      * @param player winner
      */
     public void printResult(int player) {
-        if(!userQuit) {
+        if (!userQuit) {
             if (isFull()) {
                 System.out.println("It's a tie!");
             } else if (player == 1) {
@@ -199,7 +277,6 @@ public class Game implements GameInterface {
      * @param howMany elements in a winning line
      */
     public void play(int howMany) {
-        int[] move;
         int winner = 0;
 
         // game loop
@@ -215,8 +292,17 @@ public class Game implements GameInterface {
 
             // check winning
             if (hasWon(player, howMany)) {
+                printBoard();
                 winner = player;
-                break;
+
+                printResult(winner);
+
+                Scanner scan = new Scanner(System.in);
+                System.out.print("Press any key to return to main menu: ");
+                boolean userInput = scan.hasNext();
+                if (userInput) {
+                    break;
+                }
             }
 
             // change player
@@ -227,6 +313,6 @@ public class Game implements GameInterface {
             }
         }
 
-        printResult(winner);
+
     }
 }
