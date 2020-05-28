@@ -113,16 +113,9 @@ public class Main {
                     terminal.setStyle(Attribute.UNDERSCORE);
                     break;
                 case "f":
-                    boolean gameOn = true;
-
                     Game game = new Game(11, 11);
-                    game.printBoard();
-                    game.play(5);
 
-//                    while (gameOn) {
-//                        System.out.print("User choice: ");
-//                        userInput = scan.nextLine();
-//                    }
+                    game.play(5);
 
                     break;
                 case "z":
