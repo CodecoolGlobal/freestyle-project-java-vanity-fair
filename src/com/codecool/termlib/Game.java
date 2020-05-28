@@ -146,65 +146,127 @@ public class Game implements GameInterface {
         int winCounter = 1;
 
         // check victory for rows
-        for (int i = col + 1; i < nCols; i++) {
-            if (board[row][i] == player) {
-                winCounter++;
-            }
+        for (int i = col + 1; i < nCols && board[row][i] == player; i++) {
+            winCounter++;
         }
-        for (int i = col - 1; i >= 0; i--) {
-            if (board[row][i] == player) {
-                winCounter++;
-            }
+        for (int i = col - 1; i >= 0 && board[row][i] == player; i--) {
+            winCounter++;
         }
         if (winCounter >= howMany) {
+            for (int i = col + 1; i < nCols && board[row][i] == player; i++) {
+                if (player == 1) {
+                    board[row][i] = 3;
+                } else {
+                    board[row][i] = 4;
+                }
+            }
+            for (int i = col - 1; i >= 0 && board[row][i] == player; i--) {
+                if (board[row][i] == player) {
+                    if (player == 1) {
+                        board[row][i] = 3;
+                    } else {
+                        board[row][i] = 4;
+                    }
+                }
+            }
+            if (board[row][col] == 1) {
+                board[row][col] = 3;
+            } else {
+                board[row][col] = 4;
+            }
             return true;
         }
 
         // check victory for cols
         winCounter = 1;
-        for (int i = row + 1; i < nRows; i++) {
-            if (board[i][col] == player) {
-                winCounter++;
-            }
+        for (int i = row + 1; i < nRows && board[i][col] == player; i++) {
+            winCounter++;
         }
-        for (int i = row - 1; i >= 0; i--) {
-            if (board[i][col] == player) {
-                winCounter++;
-            }
+        for (int i = row - 1; i >= 0 && board[i][col] == player; i--) {
+            winCounter++;
         }
         if (winCounter >= howMany) {
+            for (int i = row + 1; i < nRows && board[i][col] == player; i++) {
+                if (board[i][col] == 1) {
+                    board[i][col] = 3;
+                } else {
+                    board[i][col] = 4;
+                }
+            }
+            for (int i = row - 1; i >= 0 && board[i][col] == player; i--) {
+                if (board[i][col] == 1) {
+                    board[i][col] = 3;
+                } else {
+                    board[i][col] = 4;
+                }
+            }
+            if (board[row][col] == 1) {
+                board[row][col] = 3;
+            } else {
+                board[row][col] = 4;
+            }
             return true;
         }
 
         // check victory for main diagonal
         winCounter = 1;
-        for (int i = row + 1, j = col + 1; i < nRows && j < nCols; i++, j++) {
-            if (board[i][j] == player) {
-                winCounter++;
-            }
+        for (int i = row + 1, j = col + 1; i < nRows && j < nCols && board[i][j] == player; i++, j++) {
+            winCounter++;
         }
-        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
-            if (board[i][j] == player) {
-                winCounter++;
-            }
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0 && board[i][j] == player; i--, j--) {
+            winCounter++;
         }
         if (winCounter >= howMany) {
+            for (int i = row + 1, j = col + 1; i < nRows && j < nCols && board[i][j] == player; i++, j++) {
+                if (board[i][j] == 1) {
+                    board[i][j] = 3;
+                } else {
+                    board[i][j] = 4;
+                }
+            }
+            for (int i = row - 1, j = col - 1; i >= 0 && j >= 0 && board[i][j] == player; i--, j--) {
+                if (board[i][j] == 1) {
+                    board[i][j] = 3;
+                } else {
+                    board[i][j] = 4;
+                }
+            }
+            if (board[row][col] == 1) {
+                board[row][col] = 3;
+            } else {
+                board[row][col] = 4;
+            }
             return true;
         }
 
         // check victory for secondary diagonal
         winCounter = 1;
-        for (int i = row + 1, j = col - 1; i < nRows && j >= 0; i++, j--) {
-            if (board[i][j] == player) {
-                winCounter++;
-            }
+        for (int i = row + 1, j = col - 1; i < nRows && j >= 0 && board[i][j] == player; i++, j--) {
+            winCounter++;
         }
-        for (int i = row - 1, j = col + 1; i >= 0 && j < nCols; i--, j++) {
-            if (board[i][j] == player) {
-                winCounter++;
-            }
+        for (int i = row - 1, j = col + 1; i >= 0 && j < nCols && board[i][j] == player; i--, j++) {
+            winCounter++;
         }
         if (winCounter >= howMany) {
+            for (int i = row + 1, j = col - 1; i < nRows && j >= 0 && board[i][j] == player; i++, j--) {
+                if (board[i][j] == 1) {
+                    board[i][j] = 3;
+                } else {
+                    board[i][j] = 4;
+                }
+            }
+            for (int i = row - 1, j = col + 1; i >= 0 && j < nCols && board[i][j] == player; i--, j++) {
+                if (board[i][j] == 1) {
+                    board[i][j] = 3;
+                } else {
+                    board[i][j] = 4;
+                }
+            }
+            if (board[row][col] == 1) {
+                board[row][col] = 3;
+            } else {
+                board[row][col] = 4;
+            }
             return true;
         }
 
@@ -244,8 +306,20 @@ public class Game implements GameInterface {
                     terminal.setColor(Color.BLUE);
                     System.out.print(" X ");
                     terminal.resetStyle();
+                } else if (this.board[row][col] == 2) {
+                    terminal.setColor(Color.YELLOW);
+                    System.out.print(" O ");
+                    terminal.resetStyle();
+                } else if (this.board[row][col] == 3) {
+                    terminal.setColor(Color.BLUE);
+                    terminal.setStyle(Attribute.UNDERSCORE);
+                    terminal.setStyle(Attribute.ITALIC);
+                    System.out.print(" X ");
+                    terminal.resetStyle();
                 } else {
                     terminal.setColor(Color.YELLOW);
+                    terminal.setStyle(Attribute.UNDERSCORE);
+                    terminal.setStyle(Attribute.ITALIC);
                     System.out.print(" O ");
                     terminal.resetStyle();
                 }
